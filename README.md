@@ -2,7 +2,12 @@
 Some practice and learning with go
 
 ## What is the purpose of this repo?
-It just contains my learning process of using golang. Nothing more.
+It just contains my learning process of using golang. Nothing more. Dont forget to run program as:
+```
+go run hello.go
+```
+
+Learn the difference between ```i := 0``` and ```i = 0```. first one gives and initial value, but what else? Is it for specifying type?
 
 ### goroutine
 the keyword go means run as a seperate task. these are named goroutines.
@@ -27,3 +32,29 @@ c := make(chan string)
 go say("Hello", c)
 ...
 ```
+Here is an example program:
+```
+package main
+
+import (
+	"fmt"
+)
+
+func say(s string, c chan int) {
+	var i int
+	for i = 0; i < 5; i++ {
+		fmt.Println(s, i)
+	}
+	c <- i
+}
+
+func main() {
+	c := make(chan int)
+	go say("Hello World", c)
+	sts := <- c
+	fmt.Println("c = ", sts)
+}
+```
+
+the *fmt* package is a shorthand of "format".
+
