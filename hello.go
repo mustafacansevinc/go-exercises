@@ -2,20 +2,21 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
-func say(s string) {
+func say(s string, c chan int) {
+	var i int
 	for i := 0; i < 5; i++ {
-		fmt.Println(s)
+		fmt.Println(s, i)
 	}
+	fmt.Println("expected i = 4. real i =", i)
+	// why is i=0? i expect it to be 4.
+	c <- i
 }
 
 func main() {
-	go say("Hello World")
-	// the keyword go means run as a seperate task
-
-	// so the rest of the program runs
-	fmt.Println("I need some sleep")
-	time.Sleep(100 * time.Millisecond)
+	c := make(chan int)
+	go say("Hello World", c)
+	sts := <- c
+	fmt.Println("c = ", sts)
 }
