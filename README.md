@@ -12,7 +12,7 @@ by then the goroutine is active, and works.
 ### channels
 goroutines can communicate using channels. now we can create a channel by sending a parameter to the method as
 ```
-func say(s string, c chan int)
+func say(s string, c chan string)
 ```
 
 and in that method return the information with that channel as 
@@ -20,4 +20,10 @@ and in that method return the information with that channel as
 c <- s
 ```
 
+finally, in the main function we have to create that channel with make command:
+```
+func main() {
+c := make(chan string)
+go say("Hello", c)
 ...
+```
